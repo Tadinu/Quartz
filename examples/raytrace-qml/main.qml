@@ -57,7 +57,7 @@ Entity {
         }
         Mesh {
             id: monkeyMesh
-            source: "monkey.obj"
+            source: "../assets/monkey.obj"
         }
         components: [ monkeyMaterial, monkeyMesh ]
     }
@@ -75,7 +75,7 @@ Entity {
         }
         Mesh {
             id: groundMesh
-            source: "plane.obj"
+            source: "../assets/plane.obj"
         }
         components: [ groundTransform, groundMaterial, groundMesh ]
     }

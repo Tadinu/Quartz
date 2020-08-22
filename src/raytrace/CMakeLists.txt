@@ -4,9 +4,22 @@ set(MODULE_API ${QUARTZ_PUBLIC_API}/${MODULE_NAME})
 set(MODULE_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
 set(MODULE_PATH ${MODULE_PATH} ${MODULE_BINARY_DIR} PARENT_SCOPE)
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/home/ascent/NATIVE/nativefarm/ThirdParty/Geometry/assimp/release/lib/cmake/assimp-5.0")
+foreach(path ${CMAKE_PREFIX_PATH})
+  message("Path: " ${path})
+endforeach(path)
 
 find_package(Qt5 COMPONENTS Core Gui 3DCore REQUIRED)
-find_package(assimp REQUIRED)
+find_package(ASSIMP REQUIRED)
+
+foreach(lib ${ASSIMP_LIBRARIES})
+  message("Assimp lib: " ${lib})
+endforeach(lib)
+
+foreach(libdir ${ASSIMP_LIBRARY_DIRS})
+  message("Assimp lib dir: " ${libdir})
+endforeach(libdir)
+message(${ASSIMP_INCLUDE_DIRS})
 
 if(WIN32)
     set(THIRDPARTY_PATH ${THIRDPARTY_PATH} ${ASSIMP_BINARY_DIR})
@@ -111,12 +124,13 @@ set_target_properties(${MODULE_NAME} PROPERTIES OUTPUT_NAME ${MODULE_LIBNAME})
 
 target_include_directories(${MODULE_NAME}
     PUBLIC ${QUARTZ_PUBLIC_API}
-    PRIVATE ${assimp_INCLUDE_DIRS}
+    PRIVATE ${ASSIMP_INCLUDE_DIRS}
 )
 
 target_compile_features(${MODULE_NAME} PUBLIC cxx_std_14)
 target_compile_definitions(${MODULE_NAME} PRIVATE VK_NO_PROTOTYPES)
-target_link_libraries(${MODULE_NAME} Qt5::Core Qt5::Gui Qt5::3DCorePrivate stb ${assimp_LIBRARIES})
+#link_directories(${ASSIMP_LIBRARY_DIRS})
+target_link_libraries(${MODULE_NAME} Qt5::Core Qt5::Gui Qt5::3DCorePrivate stb ${ASSIMP_LIBRARIES} -L${ASSIMP_LIBRARY_DIRS})
 
 add_subdirectory(renderers)
 target_link_libraries(${MODULE_NAME} ${RENDERER_LIBRARIES})

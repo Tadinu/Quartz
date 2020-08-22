@@ -177,13 +177,13 @@ Conversion quality depends on the input file format and complexity of a particul
 
 Variable | Description | Example value
 ---------|-------------|--------------
-`QTDIR` | Path to Qt 5.12 headers & libraries | `C:\Qt\5.12.0\msvc2017_64`
-`VULKAN_SDK` | Path to Khronos Vulkan SDK (Windows only) | `C:\VulkanSDK\1.1.97.0`
-`ASSIMP_ROOT_DIR` | Path to Assimp SDK (Windows only) | `C:\Program Files\Assimp`
+`QTDIR` | Path to Qt 5.12 headers & libraries | Windows: `C:\Qt\5.12.0\msvc2017_64` & Linux: `~/QT/5.15.0/gcc_64`
+`VULKAN_SDK` | Path to Khronos Vulkan SDK | Windows:`C:\VulkanSDK\1.1.97.0` & Linux: `~/VULKAN/VULKAN/1.2.148.1/x86_64`
+`ASSIMP_ROOT_DIR` | Path to Assimp SDK | Windows: `C:\Program Files\Assimp` & Linux: `~/assimp` 
 
 ### Steps to build
 
-1. Compile GLSL shaders to SPIR-V by running: `src\raytrace\renderers\vulkan\shaders\compile.py`.
+1. Compile GLSL shaders to SPIR-V by running: `python3 src\raytrace\renderers\vulkan\shaders\compile.py`.
 2. Configure & build the project using the top level `CMakeLists.txt` file.
 
 **Note for Linux:** Make sure that the version of Qt being used ships with Vulkan support enabled at compile time. Official Qt binaries for Linux support Vulkan since version **5.13**.

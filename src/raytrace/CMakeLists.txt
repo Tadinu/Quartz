@@ -1,25 +1,49 @@
 set(MODULE_NAME "Qt3DRaytrace")
 set(MODULE_LIBNAME "Qt53DRaytrace")
 set(MODULE_API ${QUARTZ_PUBLIC_API}/${MODULE_NAME})
-set(MODULE_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+
+set(PROJECT_BINARY_DIR "${CMAKE_INSTALL_PREFIX}/bin")
+set(MODULE_BINARY_DIR ${PROJECT_BINARY_DIR})
 
 set(MODULE_PATH ${MODULE_PATH} ${MODULE_BINARY_DIR} PARENT_SCOPE)
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/home/ascent/NATIVE/nativefarm/ThirdParty/Geometry/assimp/release/lib/cmake/assimp-5.0")
+
+# [CMAKE_PREFIX_PATH] TO LOOK FOR [ASSIMP]
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "~/NATIVE/nativefarm/ThirdParty/Geometry/assimp/release/lib/cmake/assimp-5.0")
 foreach(path ${CMAKE_PREFIX_PATH})
-  message("Path: " ${path})
+   message("CMAKE_PREFIX_PATH: " ${path})
 endforeach(path)
 
 find_package(Qt5 COMPONENTS Core Gui 3DCore REQUIRED)
 find_package(ASSIMP REQUIRED)
 
+message(STATUS "ASSIMP_ROOT_DIR: ${ASSIMP_ROOT_DIR}")
+
 foreach(lib ${ASSIMP_LIBRARIES})
-  message("Assimp lib: " ${lib})
+  message(STATUS "ASSIMP_LIBRARIES: " ${lib})
 endforeach(lib)
 
 foreach(libdir ${ASSIMP_LIBRARY_DIRS})
-  message("Assimp lib dir: " ${libdir})
+  message(STATUS "ASSIMP_LIBRARY_DIRS: " ${libdir})
 endforeach(libdir)
-message(${ASSIMP_INCLUDE_DIRS})
+message(STATUS "ASSIMP_INCLUDE_DIRS:" ${ASSIMP_INCLUDE_DIRS})
+
+# ------------------------------------------------------------
+# RPATH --
+# use, i.e. don't skip the full RPATH for the build tree
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+
+# when building, don't use the install RPATH already
+# (but later on when installing)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" "${ASSIMP_ROOT_DIR}/lib")
+
+# Add the automatically determined parts of the RPATH
+# which point to directories outside the build tree to the install RPATH.
+# Remembter to set the RPATH before defining the targets in your CMake-File.
+# So this instruction have to be before add_executable() or add_library() is called, otherwise it has no effect.
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+# ------------------------------------------------------------
 
 if(WIN32)
     set(THIRDPARTY_PATH ${THIRDPARTY_PATH} ${ASSIMP_BINARY_DIR})
@@ -141,3 +165,5 @@ if(BUILD_SHARED_LIBS)
         PRIVATE QT3DRAYTRACE_LIBRARY
     )
 endif()
+
+install(TARGETS ${MODULE_NAME} DESTINATION "lib")

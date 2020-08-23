@@ -28,4 +28,5 @@ if(BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
+set(PROJECT_BINARY_DIR "${CMAKE_INSTALL_PREFIX}/bin")
 set(QML_IMPORT_PATH "${PROJECT_BINARY_DIR}/qml")

@@ -1,11 +1,20 @@
 set(MODULE_NAME "Qt3DRaytraceExtras")
 set(MODULE_LIBNAME "Qt53DRaytraceExtras")
 set(MODULE_API ${QUARTZ_PUBLIC_API}/${MODULE_NAME})
-set(MODULE_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+
+set(PROJECT_BINARY_DIR "${CMAKE_INSTALL_PREFIX}/bin")
+set(MODULE_BINARY_DIR ${PROJECT_BINARY_DIR})
 
 set(MODULE_PATH ${MODULE_PATH} ${MODULE_BINARY_DIR} PARENT_SCOPE)
 
 find_package(Qt5 COMPONENTS Core Gui 3DCore 3DQuick 3DInput 3DLogic REQUIRED)
+
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+# Add the automatically determined parts of the RPATH
+# which point to directories outside the build tree to the install RPATH.
+# Remembter to set the RPATH before defining the targets in your CMake-File.
+# So this instruction have to be before add_executable() or add_library() is called, otherwise it has no effect.
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 set(SOURCES_PRIVATE
     qt3draytraceextras_global_p.h
@@ -38,3 +47,5 @@ if(BUILD_SHARED_LIBS)
         PRIVATE QT3DRAYTRACEEXTRAS_LIBRARY
     )
 endif()
+
+install(TARGETS ${MODULE_NAME} DESTINATION "lib")

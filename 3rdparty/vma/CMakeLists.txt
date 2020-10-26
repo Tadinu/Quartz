@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(vma)
 
 find_package(Vulkan REQUIRED)
+find_package(Qt5 COMPONENTS Core)
 
 add_library(vma STATIC vk_mem_alloc.cpp vk_mem_alloc.h)
 target_include_directories(vma PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

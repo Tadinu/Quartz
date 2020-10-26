@@ -4,7 +4,7 @@ set(APP_NAME "scene2qml")
 
 find_package(Qt5 COMPONENTS Core REQUIRED)
 find_package(ASSIMP REQUIRED)
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" ${ASSIMP_LIBRARY_DIRS})
 # Add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH.
 # Remembter to set the RPATH before defining the targets in your CMake-File.

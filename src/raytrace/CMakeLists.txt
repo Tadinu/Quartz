@@ -13,7 +13,7 @@ foreach(path ${CMAKE_PREFIX_PATH})
    message("CMAKE_PREFIX_PATH: " ${path})
 endforeach(path)
 
-find_package(Qt5 COMPONENTS Core Gui 3DCore REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets 3DCore REQUIRED)
 find_package(ASSIMP REQUIRED)
 
 message(STATUS "ASSIMP_ROOT_DIR: ${ASSIMP_ROOT_DIR}")
@@ -154,7 +154,7 @@ target_include_directories(${MODULE_NAME}
 target_compile_features(${MODULE_NAME} PUBLIC cxx_std_14)
 target_compile_definitions(${MODULE_NAME} PRIVATE VK_NO_PROTOTYPES)
 #link_directories(${ASSIMP_LIBRARY_DIRS})
-target_link_libraries(${MODULE_NAME} Qt5::Core Qt5::Gui Qt5::3DCorePrivate stb ${ASSIMP_LIBRARIES} -L${ASSIMP_LIBRARY_DIRS})
+target_link_libraries(${MODULE_NAME} Qt5::Core Qt5::Gui Qt5::Widgets Qt5::3DCorePrivate stb ${ASSIMP_LIBRARIES} -L${ASSIMP_LIBRARY_DIRS})
 
 add_subdirectory(renderers)
 target_link_libraries(${MODULE_NAME} ${RENDERER_LIBRARIES})

@@ -4,6 +4,7 @@
  * See LICENSE file for licensing information.
  */
 
+#include <QtGui/QImage>
 #include <frontend/qmaterial_p.h>
 #include <frontend/qabstracttexture_p.h>
 
@@ -108,9 +109,38 @@ void QMaterial::setEmissionIntensity(float intensity)
     }
 }
 
+QAbstractTexture* QMaterial::createTexture(const QString& textureFilePath)
+{
+    auto* texture = new Qt3DRaytrace::QAbstractTexture(this);
+    auto* textureImage = new Qt3DRaytrace::QTextureImage(texture);
+
+    QImage image;
+    image.load(textureFilePath);
+    QByteArray arr;
+    QDataStream ds(&arr, QIODevice::ReadWrite);
+    ds.writeRawData((const char*)image.bits(), image.sizeInBytes());
+
+    Qt3DRaytrace::QImageData imageData;
+    imageData.format = Qt3DRaytrace::QImageData::Format::RGBA;
+    imageData.width = 854;
+    imageData.height = 854;
+    imageData.channels = 4;
+    imageData.type = Qt3DRaytrace::QImageData::ValueType::Float16;
+    imageData.data = arr;
+    textureImage->setData(imageData);
+
+    return texture;
+}
+
+void QMaterial::setAlbedoTexture(const QString& textureFilePath)
+{
+    setAlbedoTexture(createTexture(textureFilePath));
+}
+
 void QMaterial::setAlbedoTexture(QAbstractTexture *texture)
 {
     Q_D(QMaterial);
+    Q_ASSERT(texture);
     if(d->m_albedoTexture != texture) {
         if(d->m_albedoTexture) {
             d->unregisterDestructionHelper(d->m_albedoTexture);
@@ -126,9 +156,15 @@ void QMaterial::setAlbedoTexture(QAbstractTexture *texture)
     }
 }
 
+void QMaterial::setRoughnessTexture(const QString& textureFilePath)
+{
+    setRoughnessTexture(createTexture(textureFilePath));
+}
+
 void QMaterial::setRoughnessTexture(QAbstractTexture *texture)
 {
     Q_D(QMaterial);
+    Q_ASSERT(texture);
     if(d->m_roughnessTexture != texture) {
         if(d->m_roughnessTexture) {
             d->unregisterDestructionHelper(d->m_roughnessTexture);
@@ -144,9 +180,15 @@ void QMaterial::setRoughnessTexture(QAbstractTexture *texture)
     }
 }
 
+void QMaterial::setMetalnessTexture(const QString& textureFilePath)
+{
+    setMetalnessTexture(createTexture(textureFilePath));
+}
+
 void QMaterial::setMetalnessTexture(QAbstractTexture *texture)
 {
     Q_D(QMaterial);
+    Q_ASSERT(texture);
     if(d->m_metalnessTexture != texture) {
         if(d->m_metalnessTexture) {
             d->unregisterDestructionHelper(d->m_metalnessTexture);

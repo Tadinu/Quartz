@@ -24,7 +24,7 @@ static QString indent(int n)
 
 static QString idForName(const QString &name, const QString &defaultId)
 {
-    QStringList parts = name.split(QRegularExpression("[^a-zA-Z0-9]"), QString::SkipEmptyParts);
+    QStringList parts = name.split(QRegularExpression("[^a-zA-Z0-9]"), Qt::SplitBehaviorFlags::SkipEmptyParts);
     if(parts.empty()) {
         return defaultId;
     }

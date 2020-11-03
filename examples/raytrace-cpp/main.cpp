@@ -9,6 +9,9 @@
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
+#include <Qt3DRender/QTextureImage>
+#include <QtWidgets/QMessageBox>
+#include <QtGui/QPixmap>
 
 #include <Qt3DRaytrace/qcolorspace.h>
 #include <Qt3DRaytrace/qrendersettings.h>
@@ -16,9 +19,12 @@
 #include <Qt3DRaytrace/qmaterial.h>
 #include <Qt3DRaytrace/qmesh.h>
 #include <Qt3DRaytrace/qdistantlight.h>
+#include <Qt3DRaytrace/qabstracttexture.h>
 
 #include <Qt3DRaytraceExtras/qt3dwindow.h>
 #include <Qt3DRaytraceExtras/qfirstpersoncameracontroller.h>
+
+#include <iostream>
 
 static Qt3DCore::QEntity *createScene()
 {
@@ -60,6 +66,11 @@ static Qt3DCore::QEntity *createScene()
         monkeyMaterial->setAlbedo(QColor("crimson"));
         monkeyMaterial->setRoughness(0.5f);
 
+        std::cout << "Monkey textures:" << std::endl;
+        monkeyMaterial->setAlbedoTexture("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/examples/assets/T_Floor_01_N.png");
+        monkeyMaterial->setMetalnessTexture("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/examples/assets/T_Floor_01_M.png");
+        monkeyMaterial->setRoughnessTexture("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/examples/assets/T_Floor_01_D.png");
+
         auto *monkeyMesh = new Qt3DRaytrace::QMesh;
         monkeyMesh->setSource(QUrl("qrc:/monkey.obj"));
 
@@ -74,7 +85,12 @@ static Qt3DCore::QEntity *createScene()
         groundTransform->setScale(10.0f);
 
         auto *groundMaterial = new Qt3DRaytrace::QMaterial;
-        groundMaterial->setAlbedo(QColor("white"));
+        //groundMaterial->setAlbedo(QColor("blue"));
+
+        std::cout << "Ground textures:" << std::endl;
+        groundMaterial->setAlbedoTexture("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/examples/assets/T_Floor_01_N.png");
+        groundMaterial->setMetalnessTexture("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/examples/assets/T_Floor_01_M.png");
+        groundMaterial->setRoughnessTexture("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/examples/assets/T_Floor_01_D.png");
 
         auto *groundMesh = new Qt3DRaytrace::QMesh;
         groundMesh->setSource(QUrl("qrc:/plane.obj"));
@@ -86,6 +102,10 @@ static Qt3DCore::QEntity *createScene()
 
     return rootEntity;
 }
+
+
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 
 int main(int argc, char **argv)
 {

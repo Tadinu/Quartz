@@ -47,9 +47,15 @@ public slots:
     void setEmission(const QColor &emission);
     void setEmissionIntensity(float intensity);
 
+    QAbstractTexture* createTexture(const QString& textureFilePath);
     void setAlbedoTexture(QAbstractTexture *texture);
+    void setAlbedoTexture(const QString& textureFilePath);
+
     void setRoughnessTexture(QAbstractTexture *texture);
+    void setRoughnessTexture(const QString& textureFilePath);
+
     void setMetalnessTexture(QAbstractTexture *texture);
+    void setMetalnessTexture(const QString& textureFilePath);
 
 signals:
     void albedoChanged(const QColor &albedo);

@@ -7,6 +7,7 @@
 #include <QGuiApplication>
 #include <QVulkanInstance>
 #include <Qt3DRaytraceExtras/qt3dquickwindow.h>
+#include <QQmlEngine>
 
 int main(int argc, char **argv)
 {
@@ -17,6 +18,11 @@ int main(int argc, char **argv)
     if(!vulkanInstance.create()) {
         qFatal("Failed to create Vulkan instance: %x", vulkanInstance.errorCode());
     }
+
+    //QQmlEngine::Get()->addImportPath("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/src/qml");
+    QQmlEngine engine;
+    engine.addImportPath("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/release/bin/qml");
+    //engine.addPluginPath("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/release/bin/qml");
 
     Qt3DRaytraceExtras::Quick::Qt3DQuickWindow window;
     window.setVulkanInstance(&vulkanInstance);

@@ -10,6 +10,7 @@
 #include <backend/managers_p.h>
 #include <backend/textureimage_p.h>
 
+#include <iostream>
 #include <cstring>
 
 namespace Qt3DRaytrace {
@@ -112,6 +113,13 @@ void UploadTextureJob::run()
     const auto &imageData = textureImageNode->data();
     const uint32_t imageWidth = uint32_t(imageData.width);
     const uint32_t imageHeight = uint32_t(imageData.height);
+    std::cout << "Image: " << imageWidth << std::endl
+                           << imageHeight << std::endl
+                           << imageData.channels << std::endl
+                           << (int)imageData.type << std::endl
+                           << (int)imageData.format << std::endl
+                           << imageData.data.length() << std::endl
+                           << "=====================" << std::endl;
 
     auto *device = m_renderer->device();
     auto *commandBufferManager = m_renderer->commandBufferManager();

@@ -199,7 +199,7 @@ QVector<Qt3DCore::QAspectJobPtr> Renderer::createMaterialJobs(bool forceAllDirty
 
     QVector<Raytrace::HMaterial> dirtyMaterialHandles;
     if(forceAllDirty) {
-        dirtyMaterialHandles = materialManager->activeHandles();
+        //dirtyMaterialHandles = materialManager->activeHandles();
         materialManager->clearDirtyComponents();
     }
     else {

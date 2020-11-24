@@ -113,13 +113,13 @@ void UploadTextureJob::run()
     const auto &imageData = textureImageNode->data();
     const uint32_t imageWidth = uint32_t(imageData.width);
     const uint32_t imageHeight = uint32_t(imageData.height);
-    std::cout << "Image: " << imageWidth << std::endl
-                           << imageHeight << std::endl
-                           << imageData.channels << std::endl
-                           << (int)imageData.type << std::endl
-                           << (int)imageData.format << std::endl
-                           << imageData.data.length() << std::endl
-                           << "=====================" << std::endl;
+    std::cout << std::endl << "Image: " << "Width: "  << imageWidth  << std::endl
+                                        << "ImageData channel: " << imageData.channels    << std::endl
+                                        << "Length: " << imageHeight << std::endl
+                                        << "ImageData type: "    << (int)imageData.type   << std::endl
+                                        << "ImageData format: "  << (int)imageData.format << std::endl
+                                        << imageData.data.length() << std::endl
+                                        << "=====================" << std::endl;
 
     auto *device = m_renderer->device();
     auto *commandBufferManager = m_renderer->commandBufferManager();

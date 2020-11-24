@@ -3,7 +3,6 @@
     <qresource>
         <file alias="plane.obj">../assets/plane.obj</file>
         <file alias="monkey.obj">../assets/monkey.obj</file>
-        <file alias="monkey.obj">../assets/monkey.obj</file>
         <file alias="T_Floor_01_D.png">../assets/T_Floor_01_D.png</file>
         <file alias="T_Floor_01_M.png">../assets/T_Floor_01_M.png</file>
         <file alias="T_Floor_01_N.png">../assets/T_Floor_01_N.png</file>

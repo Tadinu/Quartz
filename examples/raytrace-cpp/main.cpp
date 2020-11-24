@@ -85,7 +85,7 @@ static Qt3DCore::QEntity *createScene()
         groundTransform->setScale(10.0f);
 
         auto *groundMaterial = new Qt3DRaytrace::QMaterial;
-        //groundMaterial->setAlbedo(QColor("blue"));
+        groundMaterial->setAlbedo(QColor("blue"));
 
         std::cout << "Ground textures:" << std::endl;
         groundMaterial->setAlbedoTexture("/home/ascent/NATIVE/nativefarm/ThirdParty/Graphics/Quartz/examples/assets/T_Floor_01_N.png");

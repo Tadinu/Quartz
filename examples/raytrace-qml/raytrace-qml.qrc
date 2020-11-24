@@ -4,6 +4,5 @@
         <file>main.qml</file>
         <file>../assets/plane.obj</file>
         <file>../assets/monkey.obj</file>
-        <file>../assets/monkey.obj</file>
     </qresource>
 </RCC>
